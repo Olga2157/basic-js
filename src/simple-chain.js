@@ -1,26 +1,45 @@
 const CustomError = require("../extensions/custom-error");
 
 const chainMaker = {
+  chainArray: [],
+
   getLength() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    return this.chainArray.length;
   },
   addLink(value) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    this.chainArray.push(value);
+    return this;
   },
   removeLink(position) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    if (position < 0 || position > this.chainArray.length) {
+      this.chainArray = [];
+      throw new Error();
+    }
+    this.chainArray.splice(position - 1, 1);
+    return this;
   },
   reverseChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    this.chainArray = this.chainArray.reverse();
+    return this;
   },
   finishChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
-  }
+    if (this.chainArray.length === 0) {
+      return "";
+    }
+    let res = "( ";
+    for (let i = 0; i < this.chainArray.length - 1; i++) {
+      res = res + this.chainArray[i] + " )~~( ";
+    }
+    res = res + this.chainArray[this.chainArray.length - 1] + " )";
+    this.chainArray = [];
+    return res;
+  },
 };
 
 module.exports = chainMaker;
+
+// getLength returns the current chain length as a number;
+// addLink(value) adds a link containing a string representation of the value to the chain;
+// removeLink(position) removes a chain link in the specified position;
+// reverseChain reverses the chain;
+// finishChain ends the chain and returns it.
