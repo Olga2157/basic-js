@@ -13,13 +13,14 @@ module.exports = function dateSample(sampleActivity) {
   ) {
     return false;
   }
-  console.log("!!!!!!!sampleActivity : " + sampleActivity);
+  
   let sampleActivityNumber = Number.parseInt(sampleActivity);
   if (isNaN(sampleActivityNumber)) {
     return false;
   }
   let rateConstant = 0.693 / HALF_LIFE_PERIOD;
   let age = Math.log(MODERN_ACTIVITY / sampleActivity) / rateConstant;
+//   ceil - округляет в верхнюю-большую сторону
   return Math.ceil(age);
 };
 
