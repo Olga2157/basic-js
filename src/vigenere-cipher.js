@@ -19,13 +19,16 @@ class VigenereCipheringMachine {
     let keyIndex = 0;
     for (let i = 0; i < message.length; i++) {
       if (keyIndex == key.length) {
+//         обнуление keyIndex нужно, тк длина сообщения может быть больше ключа
         keyIndex = 0;
       }
+//       если не буквы, то добавляется в исходном виде, шифровка не требуется
       if (message.charCodeAt(i) > 90 || message.charCodeAt(i) < 65) {
         encryptShifr.push(message[i]);
       } else {
         let messageChar = message.charCodeAt(i) - 65;
         let keyChar = key.charCodeAt(keyIndex) - 65;
+//         formula was used from https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher
         let encryptShifrCode = (messageChar + keyChar) % 26;
         encryptShifr.push(String.fromCharCode(encryptShifrCode + 65));
         keyIndex++;
